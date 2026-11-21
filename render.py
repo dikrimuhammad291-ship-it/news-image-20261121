@@ -1,27 +1,47 @@
-#!/usr/bin/env python3
-"""Draw the front page for Saturday 21 November 2026.
+"""Draw the 21 November 2026 world-news front page.
 
-A newspaper front page (1024x1024 PNG) summing up the world's news of
-Saturday 21 November 2026. All artwork is original vector art drawn with
-Pillow; no photographs. Run: python3 render.py  ->  entry.png
+This script paints a newspaper-style front page -- masthead, lead story,
+side stories and data boxes -- onto a square canvas and saves it as
+``entry.png`` next to this file.  Run it directly to redraw the page:
+
+    python3 render.py
+
+The palette is a print look: warm paper, dark ink, one red accent and a
+deep navy for the secondary headlines.
 """
 
-import math
-import os
-from PIL import Image, ImageDraw, ImageFont
+import math  # small numeric helpers
+import os  # locating this script and joining paths
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+from PIL import Image  # blank canvas, loading, saving
+from PIL import ImageDraw  # lines, boxes and text on the canvas
+from PIL import ImageFont  # truetype font loading
+
+# --- Where things live -------------------------------------------------
+# The directory holding this script, resolved to an absolute path so the
+# script behaves the same no matter where it is launched from.
+HERE = os.path.dirname(
+    os.path.abspath(__file__)
+)
+
+# The finished picture, written next to this script.
 OUT = os.path.join(HERE, "entry.png")
 
-W, H = 1024, 1024
-PAPER = (245, 241, 230)
-INK = (26, 26, 26)
-RED = (178, 34, 34)
-NAVY = (30, 58, 95)
-GREY = (110, 110, 105)
-LINE = (150, 142, 122)
-BOXBG = (250, 248, 241)
+# --- Canvas ------------------------------------------------------------
+W = 1024  # page width in pixels
+H = 1024  # page height in pixels
 
+# --- Palette (RGB) -----------------------------------------------------
+PAPER = (245, 241, 230)  # warm off-white page background
+INK = (26, 26, 26)  # near-black for body text
+RED = (178, 34, 34)  # accent red for the lead headline
+NAVY = (30, 58, 95)  # deep blue for secondary headlines
+GREY = (110, 110, 105)  # muted grey for captions and small print
+LINE = (150, 142, 122)  # tan colour for the dividing rules
+BOXBG = (250, 248, 241)  # pale box fill, a touch lighter than the paper
+
+# --- Fonts -------------------------------------------------------------
+# DejaVu truetype fonts live here on this system.
 FONT_DIR = "/usr/share/fonts/truetype/dejavu"
 
 
